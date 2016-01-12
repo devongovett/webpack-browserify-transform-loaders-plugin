@@ -157,10 +157,6 @@ export default class PackageLoadersPlugin {
     let resourceRelative = path.relative(packageDirname, data.resource);
     loaders = loaders
       .concat(this.options.injectLoaders(packageData, packageDirname, data.resource))
-      .filter(loader =>
-        (testPattern(loader.test, resourceRelative) ||
-         testPattern(loader.include, resourceRelative)) &&
-        !testPattern(loader.exclude, resourceRelative))
       .map(loader => resolveLoader(path.dirname(data.resource), "transform?" + loader))
       .reverse();
     loaders = await Promise.all(loaders);
