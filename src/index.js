@@ -161,7 +161,8 @@ export default class PackageLoadersPlugin {
         (testPattern(loader.test, resourceRelative) ||
          testPattern(loader.include, resourceRelative)) &&
         !testPattern(loader.exclude, resourceRelative))
-      .map(loader => resolveLoader(path.dirname(data.resource), "transform?" + loader));
+      .map(loader => resolveLoader(path.dirname(data.resource), "transform?" + loader))
+      .reverse();
     loaders = await Promise.all(loaders);
     this._loadersByResource[data.resource] = loaders;
     log(`adding ${loaders} loaders for ${resourceRelative} resource`);
